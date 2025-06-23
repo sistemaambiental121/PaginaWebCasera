@@ -3,6 +3,7 @@ import './App.css'
 import ProductGrid from './components/ProductGrid'
 import FilterBar from './components/FilterBar'
 import Cart from './components/Cart'
+import CotizadorModal from './components/Cotizador/CotizadorModal'
 
 function App() {
   const [filters, setFilters] = useState([])
@@ -10,6 +11,7 @@ function App() {
   const [cartItems, setCartItems] = useState([])
   const [showCart, setShowCart] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
+  const [showCotizador, setShowCotizador] = useState(false)
 
   const addToCart = (product) => {
     const found = cartItems.find(item => item.id === product.id)
@@ -81,6 +83,7 @@ function App() {
             <option>Outlet Store</option>
           </select>
           <button>Search</button>
+          <button onClick={() => setShowCotizador(true)} className="btn-cotizador">💻 Cotizador</button>
         </div>
         <button onClick={toggleCart} className="cart-toggle-btn">🛒 {cartItems.length}</button>
       </header>
@@ -112,6 +115,10 @@ function App() {
           <ProductGrid filters={filters} store={selectedStore} addToCart={addToCart} searchTerm={searchTerm} />
         </div>
       </main>
+
+      {showCotizador && (
+        <CotizadorModal onClose={() => setShowCotizador(false)} />
+      )}
     </div>
   )
 }
