@@ -4,6 +4,8 @@ import ProductGrid from './components/ProductGrid'
 import FilterBar from './components/FilterBar'
 import Cart from './components/Cart'
 import CotizadorModal from './components/Cotizador/CotizadorModal'
+import ArmadorModal from './components/ArmadorModal'
+
 
 function App() {
   const [filters, setFilters] = useState([])
@@ -12,6 +14,8 @@ function App() {
   const [showCart, setShowCart] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [showCotizador, setShowCotizador] = useState(false)
+  const [showArmador, setShowArmador] = useState(false)
+
 
   const addToCart = (product) => {
     const found = cartItems.find(item => item.id === product.id)
@@ -69,7 +73,7 @@ function App() {
   return (
     <div className="app dark-theme">
       <header className="navbar">
-        <h1 className="logo">TechHub</h1>
+        <h1 className="logo">Mi Pc 1</h1>
         <div className="search-store">
           <input
             type="text"
@@ -78,12 +82,13 @@ function App() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <select value={selectedStore} onChange={(e) => setSelectedStore(e.target.value)}>
-            <option>Downtown Store</option>
-            <option>Uptown Store</option>
-            <option>Outlet Store</option>
+            <option>Mi pc 1</option>
+            <option>Mi pc 2</option>
+            <option>Mi pc 3</option>
           </select>
           <button>Search</button>
           <button onClick={() => setShowCotizador(true)} className="btn-cotizador">💻 Cotizador</button>
+          <button onClick={() => setShowArmador(true)} className="btn-armador">🧠 Armador</button>
         </div>
         <button onClick={toggleCart} className="cart-toggle-btn">🛒 {cartItems.length}</button>
       </header>
@@ -111,13 +116,16 @@ function App() {
           <FilterBar selectedFilters={filters} setSelectedFilters={setFilters} selectedStore={selectedStore} />
         </div>
         <div className="products-section">
-          <h2 className="section-title">Products</h2>
+          <h2 className="section-title">Productos</h2>
           <ProductGrid filters={filters} store={selectedStore} addToCart={addToCart} searchTerm={searchTerm} />
         </div>
       </main>
 
       {showCotizador && (
         <CotizadorModal onClose={() => setShowCotizador(false)} />
+      )}
+      {showArmador && (
+       <ArmadorModal onClose={() => setShowArmador(false)} />
       )}
     </div>
   )
